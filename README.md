@@ -30,6 +30,8 @@ PythonProject/
 - **Player Ratings**: Incorporates player ELO ratings as features
 - **Move Analysis**: Extracts features from the first 20 moves
 - **Result Prediction**: Predicts game outcome (win/loss/draw)
+- **Model Selection Override**: Allows choosing the model (Random Forest / Logistic Regression / XGBoost) via `--model-type` argument
+- **Rating Difference Feature**: Automatically adds `rating_diff = white_rating - black_rating` to improve model performance
 
 ## Setup
 
@@ -77,6 +79,8 @@ python main.py --mode train        # Only train models
 2. Generate sample data: `python generate_sample_data.py`
 3. Run pipeline: `python main.py --mode all`
 4. Check results in `models/model_comparison.csv`
+5. (Optional) Force a specific model using:
+`python main.py --mode train --model-type logistic_regression`
 
 ## Usage
 
@@ -96,6 +100,15 @@ trainer = ModelTrainer()
 trainer.train()
 ```
 
+### Train with Logistic Regression
+`python main.py --mode train --model-type logistic_regression`
+
+### Train with Random Forest
+`python main.py --mode train --model-type random_forest`
+
+### Train with XGBoost (if installed)
+`python main.py --mode train --model-type xgboost`
+
 ### Making Predictions
 ```python
 from src.models.predictor import GamePredictor
@@ -103,6 +116,7 @@ from src.models.predictor import GamePredictor
 predictor = GamePredictor()
 result = predictor.predict(moves, white_rating, black_rating)
 ```
+
 
 ## Scientific Experiment: Full Moves Analysis
 
